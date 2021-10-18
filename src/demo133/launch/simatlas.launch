@@ -1,0 +1,35 @@
+<launch>
+  <!-- Define general parameters.  These can be overwritten by the
+       roslaunch command line. -->
+  <arg name="urdf"  default="atlas_v5.urdf"/>
+  <arg name="model" default="$(find atlas_description)/urdf/$(arg urdf)"/>
+
+  <!-- These are arguments for Gazebo. -->
+  <arg name="paused"        default="false"/>
+  <arg name="use_sim_time"  default="true"/>
+  <arg name="gui"           default="true"/>
+  <arg name="headless"      default="false"/>
+  <arg name="debug"         default="false"/>
+
+  <!-- Launch Gazebo with the empty world. -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug"        value="$(arg debug)" />
+    <arg name="gui"          value="$(arg gui)" />
+    <arg name="paused"       value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless"     value="$(arg headless)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" textfile="$(arg model)"/>
+
+  <!-- Service call to gazebo_ros to spawn a URDF robot -->
+  <!-- Place the model 1m above ground                  -->
+  <node pkg ="gazebo_ros"
+	type="spawn_model"
+	name="urdf_spawner"
+	args="-urdf -model atlas -param robot_description -z 1.0"
+	respawn="false"
+	output="screen"/>
+
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/robot/133ws/devel
+
+Name: gazebodemos
+Description: Description of gazebodemos
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
