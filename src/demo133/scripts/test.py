@@ -31,11 +31,11 @@ class Generator:
 
         # Use the same names as in the URDF!
         ###  CHANGE THIS  ###
-        cmdmsg.name = ['pan', 'tilt']
+        cmdmsg.name = ['theta1', 'theta2', 'theta3']
 
         # Set the positions as a function of time.
         ###  CHANGE THIS  ###
-        cmdmsg.position = [2*math.sin(2*t), math.cos(t)]
+        cmdmsg.position = [2*math.sin(2*t), math.cos(t), 1]
 
         # Send the command (with the current time).
         cmdmsg.header.stamp = rospy.Time.now()
@@ -75,3 +75,4 @@ if __name__ == "__main__":
         # Wait for the next turn.  The timing is determined by the
         # above definition of servo.
         servo.sleep()
+
