@@ -79,10 +79,13 @@ class Generator:
         # Newton-Ramphson
         theta = self.theta
         theta_array.append(np.array(theta))
+        # Convergence happens when two consecutive output of theta are close enough below some threshold
         for i in range(7):
             (T,J) = self.kin.fkin(theta)
             theta = theta + (np.linalg.inv(J[0:3]) @ (x_goal - kinematics.p_from_T(T))).reshape(1,3)[0]
             theta_array.append(np.array(theta))
+            
+        print(theta_array[7])
             
         for i in range(7):
             self.segments.append(Goto(theta_array[i], theta_array[i + 1], 1.0))
